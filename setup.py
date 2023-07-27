@@ -1,0 +1,1 @@
+#A script that provides information about your project and its dependencies, enabling installation via pip.
