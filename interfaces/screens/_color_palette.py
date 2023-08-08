@@ -1,0 +1,5 @@
+main_color = '#6B9080'
+second_color = '#A4C3B2'
+accent_color = '#CCE3DE'
+accent_color_addition = '#EAF4F4'
+background_color = '#F6FFF8'
