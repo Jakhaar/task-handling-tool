@@ -112,7 +112,7 @@ class LoginScreen:
         return ASSETS_PATH / Path(path)
 
     def checkLogin(self):
-        if self.entry_password.get() == 'a':
+        if self.entry_password.get() == '':
             print('JA')
             self.window.withdraw()
             self.openDashboard()
