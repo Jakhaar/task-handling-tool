@@ -2,6 +2,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import os
 import _color_palette as cp
+import screen_logic as cs
 
 class MainScreen:
     def __init__(self):
@@ -37,7 +38,7 @@ class MainScreen:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: cs.changeScreen(1),
             relief="flat"
         )
         self.button_1.place(
@@ -52,7 +53,7 @@ class MainScreen:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: cs.changeScreen(2),
             relief="flat"
         )
         self.button_2.place(
@@ -67,7 +68,7 @@ class MainScreen:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: cs.changeScreen(3),
             relief="flat"
         )
         self.button_3.place(
@@ -82,7 +83,7 @@ class MainScreen:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: cs.changeScreen(4),
             relief="flat"
         )
         self.button_4.place(
@@ -90,15 +91,6 @@ class MainScreen:
             y=562.0,
             width=207.0,
             height=32.0
-        )
-
-        self.canvas.create_rectangle(
-            0.0,
-            141.0,
-            8.0,
-            173.0,
-            fill="#F6FFF8",
-            outline=""
         )
 
         self.canvas.create_text(
@@ -119,20 +111,11 @@ class MainScreen:
             font=("Montserrat SemiBold", 16 * -1)
         )
 
-        #LOGO
-        self.canvas.create_rectangle(
-            60.0,
-            18.0,
-            150.0,
-            108.0,
-            fill="#FFFFFF",
-            outline=""
-        )
-
         self.window.resizable(False, False)
 
     def relative_to_assets(self, path: str) -> Path:
         ASSETS_PATH = Path(os.getcwd() + r"/data/assets/frame1")
         return ASSETS_PATH / Path(path)
+    
 
 

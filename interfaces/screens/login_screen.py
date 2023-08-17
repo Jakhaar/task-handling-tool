@@ -118,9 +118,9 @@ class LoginScreen:
         if self.entry_password.get() == '':
             #checken ob der Service überhaupt aktiv ist
             self.window.destroy()
-            self.openDashboard()
+            self.openMainScreen()
         
 
-    def openDashboard(self):
+    def openMainScreen(self):
         obj = ms.MainScreen()
         obj.window.mainloop()        
