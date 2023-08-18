@@ -1,18 +1,17 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel
+import os
 import _color_palette as cp
 
 class Dashboard:
-    def __init__(self, parent):
-        self.parent = parent
-        
-        self.window = Toplevel(self.parent.window)
+    def __init__(self):        
+        self.window = Tk()
+
         self.fix_width = 1200
         self.fix_height = 680
 
         self.window.geometry(f"{self.fix_width}x{self.fix_height}")
         self.window.configure(bg=cp.main_color)
-
 
         self.canvas = Canvas(
             self.window,
@@ -521,6 +520,6 @@ class Dashboard:
         self.window.resizable(False, False)
 
     def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(r"C:\Users\Joao.Antonio\Desktop\Projekte\task-handling-tool\data\assets\frame0")
+        ASSETS_PATH = Path(os.getcwd() + r"/data/assets/frame2")
         return ASSETS_PATH / Path(path)
     

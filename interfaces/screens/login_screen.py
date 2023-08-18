@@ -1,11 +1,14 @@
 from pathlib import Path
+import time
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage
 import _color_palette as cp
-import dashboard as db
+import main_screen as ms
+import os
 
 class LoginScreen:
     def __init__(self):
         self.window = Tk()
+
         self.fix_width = 1200
         self.fix_height = 680
 
@@ -108,17 +111,16 @@ class LoginScreen:
         # self.window.mainloop()
 
     def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(r"C:\Users\Joao.Antonio\Desktop\Projekte\task-handling-tool\data\assets\frame0")
+        ASSETS_PATH = Path(os.getcwd() + r"/data/assets/frame0")
         return ASSETS_PATH / Path(path)
 
     def checkLogin(self):
         if self.entry_password.get() == '':
-            print('JA')
-            self.window.withdraw()
-            self.openDashboard()
-        else:
-            print('ne')
-
-    def openDashboard(self):
-        db.Dashboard(self.window)
+            #checken ob der Service überhaupt aktiv ist
+            self.window.destroy()
+            self.openMainScreen()
         
+
+    def openMainScreen(self):
+        obj = ms.MainScreen()
+        obj.window.mainloop()        
