@@ -10,14 +10,15 @@ def logout(window):
         window = ls.LoginScreen()
         window.window.mainloop()
 
-def handle_btn_press(window, screen):
-    window.forget()
+def handle_btn_press(window):
+    # window.forget()
 
-    match screen:
-        case 'dash':
-            pass
-        case 'dash':
-            pass
-        case 'dash':
-            pass
+    # match screen:
+    #     case 'dash':
+    #         pass
+    #     case 'dash':
+    #         pass
+    #     case 'dash':
+    #         pass
+    print(window)
     

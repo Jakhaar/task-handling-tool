@@ -111,7 +111,7 @@ class LoginScreen:
         # self.window.mainloop()
 
     def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(os.getcwd() + r"/data/assets/frame0")
+        ASSETS_PATH = Path(os.getcwd() + r"/data/assets/login")
         return ASSETS_PATH / Path(path)
 
     def checkLogin(self):
