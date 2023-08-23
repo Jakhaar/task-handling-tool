@@ -73,8 +73,6 @@ class MainScreen:
 
         # Toggle layout
         toggle_frame = ctk.CTkFrame(self.window)
-        task_toggle = ctk.CTkCheckBox(toggle_frame, text = 'task1')
-
         toggle_frame.place(x=8, y=220)
 
         self.window.mainloop()
@@ -84,10 +82,16 @@ class MainScreen:
         return ASSETS_PATH / Path(path)
 
     def add_task(self, frame, task):
-        menu_toggle = ctk.CTkCheckBox(frame, text=task)
-        menu_toggle.pack(fill='x')
+        task_checkbox = ctk.CTkCheckBox(frame, text=task)
+        task_checkbox.pack(fill='x')
     
     def delete_task(self, frame):
-        if frame.winfo_children():
-            last_toggle = frame.winfo_children()[-1]
-            last_toggle.destroy()
+        selected_checkboxes = []
+    
+        for widget in frame.winfo_children():
+            if isinstance(widget, ctk.CTkCheckBox) and widget.get() == 1:
+                selected_checkboxes.append(widget.cget("text"))
+
+        for checkbox in selected_checkboxes:
+            checkbox.destroy()
+
