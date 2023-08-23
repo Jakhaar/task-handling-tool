@@ -1,10 +1,11 @@
-from pathlib import Path
-import random
-from tkinter import Tk
 import customtkinter as ctk
-import os
 import _color_palette as cp
-import math
+
+# setting path
+import sys
+sys.path.append(r'C:\Users\Joao.Antonio\Desktop\Projekte\task-handling-tool\data\logic')
+
+import screen_logic as sl
 
 class MainScreen:
     def __init__(self):
@@ -14,6 +15,8 @@ class MainScreen:
         self.window.configure(bg=cp.background_color)
 
         self.task_list = ['task1', 'task2', 'task3', 'task4','sdgf']
+
+        self.max_task = 13
         
         # Buttons layout
         run_button = ctk.CTkButton(
@@ -35,7 +38,7 @@ class MainScreen:
             fg_color = cp.main_color, 
             text_color = cp.accent_color,
             hover_color = cp.second_color,
-            command = lambda: self.add_task(frame = toggle_frame, task=random.randrange(1, 50)))
+            command = lambda: self.add(toggle_frame=toggle_frame))
         add_button.place(x=8,y=140)
 
         del_button = ctk.CTkButton(
@@ -46,7 +49,7 @@ class MainScreen:
             fg_color = cp.main_color, 
             text_color = cp.accent_color,
             hover_color = cp.second_color,
-            command = lambda: self.delete_task(toggle_frame))
+            command = lambda: self.delete(toggle_frame))
         del_button.place(x=8,y=180)
         
         reset_button = ctk.CTkButton(
@@ -68,30 +71,24 @@ class MainScreen:
             fg_color = cp.delete_color, 
             text_color = '#000',
             hover_color = cp.delete_color_addition,
-            command = lambda: print('Dienst Beenden'))
+            command = lambda: sl.logout())
         term_button.place(x=8,y=590)
 
         # Toggle layout
         toggle_frame = ctk.CTkFrame(self.window)
         toggle_frame.place(x=8, y=220)
 
+        self.window.resizable(False, False)
         self.window.mainloop()
 
-    def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(os.getcwd() + r"/data/assets/main_screen")
-        return ASSETS_PATH / Path(path)
+    def add(self, toggle_frame):
+        if self.max_task > 0:
+            sl.add_task(frame = toggle_frame, task=f'Transfer_Status_')
+            self.max_task -= 1
+            print(self.max_task)
+        
+    def delete(self, toggle_frame):
+        self.max_task += sl.delete_task(toggle_frame)
 
-    def add_task(self, frame, task):
-        task_checkbox = ctk.CTkCheckBox(frame, text=task)
-        task_checkbox.pack(fill='x')
-    
-    def delete_task(self, frame):
-        selected_checkboxes = []
-    
-        for widget in frame.winfo_children():
-            if isinstance(widget, ctk.CTkCheckBox) and widget.get() == 1:
-                selected_checkboxes.append(widget.cget("text"))
-
-        for checkbox in selected_checkboxes:
-            checkbox.destroy()
-
+if __name__ == "__main__":
+    MainScreen()
