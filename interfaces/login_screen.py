@@ -6,6 +6,7 @@ import main_screen as ms
 import os
 import sys
 import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 
 # Set the path for custom modules
 sys.path.append(os.getcwd() + r"/data/logic/")
@@ -21,7 +22,15 @@ class LoginScreen:
     def __init__(self):
         # Initialize the login window
         self.window = ctk.CTk()
-        self.window.geometry("568x308")
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+        window_width = 568  
+        window_height = 308  
+
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+
+        self.window.geometry(f"{window_width}x{window_height}+{x}+{y}")
         self.window.title('EXCHANGE')
         self.window.configure(bg=cp.background_color)
 
@@ -56,8 +65,10 @@ class LoginScreen:
     # Function to open the main screen if the password is correct
     def openMainScreen(self, password):
         if password == code:
-            # TODO: Check if the service is active
+            # TODO: Check if the service is active. If not Call Service initialization Window
             self.window.destroy()
             
             obj = ms.MainScreen()
             obj.window.mainloop()
+        else:
+            CTkMessagebox(title="Falsches Passwort", message="Die eingabe stimmt nicht", icon='warning')

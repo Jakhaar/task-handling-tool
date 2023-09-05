@@ -15,7 +15,15 @@ class MainScreen:
     def __init__(self):
         # Initialize the main window
         self.window = ctk.CTk()
-        self.window.geometry("1200x680")
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+        window_width = 1200  
+        window_height = 680  
+
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+
+        self.window.geometry(f"{window_width}x{window_height}+{x}+{y}")
         self.window.title('EXCHANGE')
         self.window.configure(bg=cp.background_color)
 
@@ -65,7 +73,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda: print('Service Restart'))
+            command=lambda:sl.restart_service(self.window))
         reset_button.place(x=8, y=540)
 
         term_button = ctk.CTkButton(
@@ -76,7 +84,7 @@ class MainScreen:
             fg_color=cp.delete_color, 
             text_color='#000',
             hover_color=cp.delete_color_addition,
-            command=lambda: sl.logout())
+            command=lambda: sl.terminate_service(self.window))
         term_button.place(x=8, y=590)
 
         # Create a frame for task toggles
