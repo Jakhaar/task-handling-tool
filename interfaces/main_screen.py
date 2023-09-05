@@ -1,9 +1,10 @@
 import customtkinter as ctk
 import _color_palette as cp
+import os
+import sys
 
 # setting path
-import sys
-sys.path.append(r'C:\Users\Joao.Antonio\Desktop\Projekte\task-handling-tool\data\logic')
+sys.path.append(os.getcwd() + r"/data/logic/")
 
 import screen_logic as sl
 
@@ -14,7 +15,7 @@ class MainScreen:
         self.window.title('EXCHANGE')
         self.window.configure(bg=cp.background_color)
 
-        self.task_list = ['task1', 'task2', 'task3', 'task4','sdgf']
+        self.task_list = []
 
         self.max_task = 13
         
@@ -85,10 +86,6 @@ class MainScreen:
         if self.max_task > 0:
             sl.add_task(frame = toggle_frame, task=f'Transfer_Status_')
             self.max_task -= 1
-            print(self.max_task)
         
     def delete(self, toggle_frame):
         self.max_task += sl.delete_task(toggle_frame)
-
-if __name__ == "__main__":
-    MainScreen()
