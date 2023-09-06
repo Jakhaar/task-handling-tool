@@ -1,18 +1,33 @@
 import os
+import sys
 from pathlib import Path
 from tkinter import messagebox
 import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 
 max_task = 13
 
-def logout(window):
-    confirm = messagebox.askyesno(
-        "Confirm log-out", "Do you really want to log out?"
-    )
-    if confirm == True:
+def check_service() -> None:
+    pass
+
+def terminate_service(window):
+    msg = CTkMessagebox(title="Dienst Beenden?", message="Soll der Dienst wirklich beendet werden?", icon='warning', option_1="Nein", option_2="Ja")
+    response = msg.get()
+    
+    if response=="Ja":
         window.destroy()
-        # window = ls.LoginScreen()
-        # window.window.mainloop()
+    else:
+        pass
+
+def restart_service(window):
+    msg = CTkMessagebox(title="Dienst Neustarten?", message="Soll der Dienst neugestartet werden?", icon='question', option_1="Nein", option_2="Ja")
+    response = msg.get()
+    
+    if response=="Ja":
+        window.destroy()
+        #TODO: Call Service initialization Window
+    else:
+        pass
 
 def relative_to_assets(self, path: str) -> Path:
     ASSETS_PATH = Path(os.getcwd() + r"/data/assets/main_screen")
