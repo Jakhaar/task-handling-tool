@@ -7,8 +7,6 @@ from CTkMessagebox import CTkMessagebox
 import customtkinter as ctk
 import time
 
-max_task = 13
-
 def insert_text(text_widget, new_text): 
     # Get the current text from the text widget
     current_text = text_widget.get('1.0', 'end')
@@ -58,19 +56,24 @@ def add_task(frame, task_name):
     task_checkbox = ctk.CTkCheckBox(frame, text=task_name)
     task_checkbox.pack(fill='x')
 
-def delete_task(frame) -> int:
+def delete_task(frame) -> tuple:
     selected_checkboxes = []
+    selected_checkboxes_names = []
 
     for widget in frame.winfo_children():
         if isinstance(widget, ctk.CTkCheckBox) and widget.get() == 1:
             selected_checkboxes.append(widget)
+            selected_checkboxes_names.append(widget.cget("text"))
 
     for checkbox in selected_checkboxes:
         checkbox.destroy()
 
-    return len(selected_checkboxes)
+    return len(selected_checkboxes), selected_checkboxes_names
 
 def open_file_dialog() -> Path:
         file_path = filedialog.askopenfilename(filetypes=[("Executables", "*.exe"), ("Python Skripte", "*.py"), ("SQL Skripte", "*.sql")])
         if file_path:
             return file_path
+        
+def run_task() -> None:
+    pass

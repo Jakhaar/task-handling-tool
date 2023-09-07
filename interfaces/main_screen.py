@@ -41,7 +41,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda: sl.insert_text(self.text_widget, f'{datetime.now().strftime("%H:%M:%S")} Beginne mit iAgent Sync..'))
+            command=lambda: self.run_task())
         run_button.place(x=8, y=100)
 
         add_button = ctk.CTkButton(
@@ -111,13 +111,19 @@ class MainScreen:
                 task_path = sl.open_file_dialog()
                 sl.add_task(frame=toggle_frame, task_name=os.path.basename(task_path))
                 self.max_task -= 1
+                sl.insert_text(text_widget=self.text_widget, new_text=f'[{datetime.now().strftime("%H:%M:%S")}] [{os.path.basename(task_path)}] wurde als Task hinzugefügt')
         except:
             pass
         
     # Function to delete a task
     def delete_task(self, toggle_frame):
-        self.max_task += sl.delete_task(toggle_frame)
+        deleted_task_num, deleted_task_list= sl.delete_task(toggle_frame)
+        self.max_task += deleted_task_num
+        if deleted_task_list:
+            sl.insert_text(text_widget=self.text_widget, new_text=f'[{datetime.now().strftime("%H:%M:%S")}] {deleted_task_list} wurde(n) als Task(s) entfernt')
 
+    def run_task(self):
+        pass
 
 if __name__ == '__main__':
     obj = MainScreen()
