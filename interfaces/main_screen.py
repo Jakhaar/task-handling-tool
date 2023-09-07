@@ -106,9 +106,13 @@ class MainScreen:
 
     # Function to add a new task
     def add_task(self, toggle_frame):
-        if self.max_task > 0:
-            sl.add_task(frame=toggle_frame, task=f'Transfer_Status_')
-            self.max_task -= 1
+        try:
+            if self.max_task > 0:
+                task_path = sl.open_file_dialog()
+                sl.add_task(frame=toggle_frame, task_name=os.path.basename(task_path))
+                self.max_task -= 1
+        except:
+            pass
         
     # Function to delete a task
     def delete_task(self, toggle_frame):

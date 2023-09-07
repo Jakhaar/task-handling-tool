@@ -2,13 +2,12 @@ import os
 import random
 import sys
 from pathlib import Path
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 from CTkMessagebox import CTkMessagebox
 import customtkinter as ctk
 import time
 
 max_task = 13
-random_texts = ["Text 1", "Text 2", "Text 3", "Random Text"]
 
 def insert_text(text_widget, new_text): 
     # Get the current text from the text widget
@@ -51,11 +50,12 @@ def restart_service(window) -> None:
         pass
 
 def relative_to_assets(self, path: str) -> Path:
-    ASSETS_PATH = Path(os.getcwd() + r"/data/assets/main_screen")
+    ASSETS_PATH = Path(os.getcwd() + r"/data/icons")
     return ASSETS_PATH / Path(path)
 
-def add_task(frame, task):
-    task_checkbox = ctk.CTkCheckBox(frame, text=task)
+def add_task(frame, task_name):
+    #TODO: Send File Path to Service
+    task_checkbox = ctk.CTkCheckBox(frame, text=task_name)
     task_checkbox.pack(fill='x')
 
 def delete_task(frame) -> int:
@@ -69,3 +69,8 @@ def delete_task(frame) -> int:
         checkbox.destroy()
 
     return len(selected_checkboxes)
+
+def open_file_dialog() -> Path:
+        file_path = filedialog.askopenfilename(filetypes=[("Executables", "*.exe"), ("Python Skripte", "*.py"), ("SQL Skripte", "*.sql")])
+        if file_path:
+            return file_path
