@@ -1,5 +1,6 @@
 # Import necessary libraries and modules
 from pathlib import Path
+import time
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage
 import _color_palette as cp
 import main_screen as ms
@@ -14,10 +15,9 @@ sys.path.append(os.getcwd() + r"/data/logic/")
 # Import the screen logic module
 import screen_logic as sl
 
-# Create the login screen class
 class InitializationScreen:
-    def __init__(self):
-        # Initialize the login window
+    def __init__(self, action_text):
+        # Initialize the window
         self.window = ctk.CTk()
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
@@ -31,13 +31,12 @@ class InitializationScreen:
         self.window.title('EXCHANGE')
         self.window.configure(bg=cp.background_color)
 
-        # Create a label for entering the password
-        label = ctk.CTkLabel(self.window, text="Der Dienst wird Initialisiert...")
+        label = ctk.CTkLabel(self.window, text=action_text)
         label.place(x=90, y=70)
 
         # Make the window non-resizable
         self.window.resizable(False, False)
 
 if __name__ == '__main__':
-    obj = InitializationScreen()
+    obj = InitializationScreen("r")
     obj.window.mainloop()

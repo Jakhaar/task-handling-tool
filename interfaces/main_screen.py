@@ -1,13 +1,14 @@
 # Import necessary libraries and modules
+import time
 import customtkinter as ctk
 import _color_palette as cp
 import os
 import sys
+import initialization_screen as ini
+from datetime import datetime
 
 # Set the path for custom modules
 sys.path.append(os.getcwd() + r"/data/logic/")
-
-# Import the screen logic module
 import screen_logic as sl
 
 # Create the main application window
@@ -40,7 +41,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda: print('Run'))
+            command=lambda: sl.insert_text(self.text_widget, f'{datetime.now().strftime("%H:%M:%S")} Beginne mit iAgent Sync..'))
         run_button.place(x=8, y=100)
 
         add_button = ctk.CTkButton(
@@ -51,7 +52,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda: self.add(toggle_frame=toggle_frame))
+            command=lambda: self.add_task(toggle_frame=toggle_frame))
         add_button.place(x=8, y=140)
 
         del_button = ctk.CTkButton(
@@ -62,7 +63,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda: self.delete(toggle_frame=toggle_frame))
+            command=lambda: self.delete_task(toggle_frame=toggle_frame))
         del_button.place(x=8, y=180)
         
         reset_button = ctk.CTkButton(
@@ -73,7 +74,7 @@ class MainScreen:
             fg_color=cp.main_color, 
             text_color=cp.accent_color,
             hover_color=cp.second_color,
-            command=lambda:sl.restart_service(self.window))
+            command=lambda:sl.restart_service(ini.InitializationScreen))
         reset_button.place(x=8, y=540)
 
         term_button = ctk.CTkButton(
@@ -91,16 +92,29 @@ class MainScreen:
         toggle_frame = ctk.CTkFrame(self.window)
         toggle_frame.place(x=8, y=220)
 
+        logger_frame = ctk.CTkFrame(self.window, width=900, height=600)
+        logger_frame.place(x=250, y=50)
+
+        self.text_widget = ctk.CTkTextbox(logger_frame, wrap='none', width=900, height=600)
+        self.text_widget.pack(fill='both', expand=True)
+
+        # Disable text editing if needed
+        self.text_widget.configure(state='disabled')
+
         # Make the window non-resizable and start the main loop
         self.window.resizable(False, False)
-        self.window.mainloop()
 
     # Function to add a new task
-    def add(self, toggle_frame):
+    def add_task(self, toggle_frame):
         if self.max_task > 0:
             sl.add_task(frame=toggle_frame, task=f'Transfer_Status_')
             self.max_task -= 1
         
     # Function to delete a task
-    def delete(self, toggle_frame):
+    def delete_task(self, toggle_frame):
         self.max_task += sl.delete_task(toggle_frame)
+
+
+if __name__ == '__main__':
+    obj = MainScreen()
+    obj.window.mainloop()
